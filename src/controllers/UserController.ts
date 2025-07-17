@@ -6,7 +6,7 @@ export const login = async (req: Request, res: Response) => {
     try {
         const {email, password} = req.body;
         const result = await loginUser(email, password);
-        res.status(200).json({message: "Login realizado com sucesso", ...result})
+        res.status(200).json({message: "Login realizado com sucesso",result})
         
     } catch (error) {
         console.error(`Erro ao efetuar o login: ${error}`)

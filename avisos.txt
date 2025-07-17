@@ -40,3 +40,8 @@ Route:
 O local ideal para fazer o TRY-CATCH é no Controller, pois ele lida com as requisições HTTP e pode capturar erros antes de enviar a resposta ao cliente.
 
 
+Lista de onde parei.
+
+    Atualizar senhas do banco com hash
+    em produto: configure rota de atualizar e deletar
+    coloque token de validação para esse tipo de ação.

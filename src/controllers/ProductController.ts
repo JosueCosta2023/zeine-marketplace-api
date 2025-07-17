@@ -1,6 +1,8 @@
 import { ProductStatus } from "../generated/prisma";
 import { editProduct, listProductByCategoryOrStatus, listProductById, listProducts, registerProduct, removeProduct } from "../services/ProductService"
+import { JwtPayload } from "jsonwebtoken";
 import { Request, Response } from "express"
+import { loginUser } from "../services/UserService";
 
 export const list = async (req: Request, res: Response) => {
     try {
@@ -28,7 +30,6 @@ export const listById = async (req: Request, res: Response) => {
     }
 }
 
-
 export const listByCategoryOrStatus = async (req: Request, res: Response) => {
     try {
         const {categoryId, status} = req.query;
@@ -44,7 +45,6 @@ export const listByCategoryOrStatus = async (req: Request, res: Response) => {
         res.status(500).json({error: "Erro de servidor ao listar produtos por categoria ou status"})
     }
 }
-
 export const create =async (req: Request, res: Response) => {
     try {
         const product = await registerProduct(req.body);
@@ -64,7 +64,25 @@ export const create =async (req: Request, res: Response) => {
 
 export const update =async (req: Request, res: Response) => {
     try {
+
         const {id} = req.params
+
+        const product= await listProductById(id);
+
+        if(!product){
+            return res.status(404).json({error: "Produto não encontrado"})
+        }
+
+        const user = req.user as JwtPayload | undefined;
+        if(!user || typeof user !== "object" || !("id" in user)){
+            return res.status(401).json({error: "Usuario não autenticado."})
+        }
+
+        if(product.userId !== user.id){
+            return res.status(403).json({error: "Você não tem permissão para editar este produto"})
+        }
+
+
         const result = await editProduct(id, req.body)
         if(!result){
             return res.status(400).json({error: "Falha ao atualizar cadastro de produto"})
