@@ -1,4 +1,4 @@
-import { listUsers, registerUser } from "../services/UserService";
+import { editUser, listUsers, registerUser, removeUser } from "../services/UserService";
 import { Request, Response } from "express";
 
 export const list = async (req: Request, res: Response) => {
@@ -15,9 +15,33 @@ export const list = async (req: Request, res: Response) => {
 export const create = async (req: Request, res: Response) => {
     try {
         const user = await registerUser(req.body)
-        res.status(201).json({message: "Usuario cadastrado consucesso", user: user})
+        res.status(201).json({message: "Usuario cadastrado com sucesso", user: user})
     } catch (error) {
         console.error(`Erro ao cadastrar usuario: ${error}`)
         res.status(500).json({error: "Erro de servidor ao cadastrar usuario."})
+    }
+}
+
+export const update = async (req: Request, res: Response) => {
+    try {
+        const {id} = req.params;
+        await editUser(id, req.body)
+        res.status(200).json({message: "Usuario atualizado com sucesso"})
+        
+    } catch (error) {
+        console.error(`Erro ao atualizar usuario: ${error}`)
+        res.status(500).json({error: "Erro de servidor ao atualizar usuario"})
+    }
+}
+
+export const remove = async (req: Request, res: Response) => {
+    try {
+        const {id} = req.params;
+        await removeUser(id)
+        res.status(200).json({message: "Usuario excluido com sucesso"})
+        
+    } catch (error) {
+        console.error(`Erro ao excluir usuario: ${error}`)
+        res.status(500).json({error: "Erro de servidor ao excluir usuario"})
     }
 }
