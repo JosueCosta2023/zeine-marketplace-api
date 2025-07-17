@@ -1,12 +1,14 @@
-import { Request, Response, Router } from "express";
+import { create, list, remove, update } from "../controllers/CategoryController";
+import {  Router } from "express";
 
 
 const router = Router()
 
 
-router.get("/", (req: Request, res: Response) => {
-    res.send("Listando...")
-})
+router.get("/", list)
+router.post("/", create)
+router.patch("/:id", update)
+router.delete("/:id", remove)
 
 
 export default router

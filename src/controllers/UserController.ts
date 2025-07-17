@@ -9,7 +9,7 @@ export const login = async (req: Request, res: Response) => {
         res.status(200).json({message: "Login realizado com sucesso", ...result})
         
     } catch (error) {
-        console.error(`Erro ao efetuar o login ${error}`)
+        console.error(`Erro ao efetuar o login: ${error}`)
         res.status(500).json({error: "Erro de servidor ao efetuar o login"})
     }
 }
@@ -21,7 +21,7 @@ export const list = async (req: Request, res: Response) => {
         res.status(200).json(users)
         
     } catch (error) {
-        console.error(`Erro ao listar usuarios ${error}`)
+        console.error(`Erro ao listar usuarios: ${error}`)
         res.status(500).json({error: "Erro de servidor ao listar usuarios"})
     }
 }
@@ -29,7 +29,7 @@ export const list = async (req: Request, res: Response) => {
 export const create = async (req: Request, res: Response) => {
     try {
         const user = await registerUser(req.body)
-        res.status(201).json({message: "Usuario cadastrado com sucesso", user: user})
+        res.status(201).json({message: "Usuario cadastrado com sucesso", user: user.id})
     } catch (error) {
         console.error(`Erro ao cadastrar usuario: ${error}`)
         res.status(500).json({error: "Erro de servidor ao cadastrar usuario."})
