@@ -11,6 +11,7 @@
   "dependencies": {
     "@prisma/client": "^6.12.0",
     "@types/cors": "^2.8.19",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "next": "15.4.1",
@@ -18,9 +19,8 @@
     "react-dom": "19.1.0",
     "save-dev": "^0.0.1-security"
   },
-
-  "prisma":{
-    "seed":"ts-node ./prisma/seed.ts"
+  "prisma": {
+    "seed": "ts-node ./prisma/seed.ts"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",

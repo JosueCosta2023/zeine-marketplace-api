@@ -19,5 +19,24 @@ Sempre trabalhe com datas em UTC no backend.
 Converta datas para string ISO (date.toISOString()) ao enviar para o frontend.
 Use bibliotecas como date-fns ou dayjs para manipulação de datas.
 No Prisma, o tipo é Date no TypeScript.
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+INJEÇAO DE DEPENDÊNCIAS ARQUIVOS EM SOLID
+o ciclo de criação desses arquivos segue esta ordem:
+
+Repository:
+    Crie primeiro o repositório, pois ele define como acessar os dados (banco, API, etc).
+
+Service:
+    Depois, crie o serviço, que recebe o repositório e implementa as regras de negócio.
+
+Controller:
+    Em seguida, crie o controller, que recebe o serviço e lida com as requisições HTTP.
+
+Route:
+    Por fim, crie o arquivo de rotas, que instancia controller, serviço e repositório, e define as rotas da API.
+
+
+O local ideal para fazer o TRY-CATCH é no Controller, pois ele lida com as requisições HTTP e pode capturar erros antes de enviar a resposta ao cliente.
 
 

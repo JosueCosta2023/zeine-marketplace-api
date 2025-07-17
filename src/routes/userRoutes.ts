@@ -1,12 +1,11 @@
-import { Request, Response, Router } from "express";
-
+import { create, list } from "../controllers/UserController";
+import { Router } from "express";
 
 const router = Router()
 
 
-router.get("/", (req: Request, res: Response) => {
-    res.send("Listando...")
-})
+router.get("/", list);
+router.post("/", create);
 
 
 export default router
