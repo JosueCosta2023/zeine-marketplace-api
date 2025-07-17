@@ -1,0 +1,6 @@
+ # Controladores: recebem requisições e chamam serviços
+
+├── controllers/       
+│   └── UserController.ts
+│   └── ProductController.ts
+│   └── CategoryController.ts

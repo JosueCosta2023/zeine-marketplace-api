@@ -1,0 +1,6 @@
+# Rotas
+
+├── routes/             
+│   └── userRoutes.ts
+│   └── productRoutes.ts
+│   └── categoryRoutes.ts

@@ -1,0 +1,6 @@
+# Modelos/Entidades
+
+├── models/             
+│   └── User.ts
+│   └── Product.ts
+│   └── Category.ts

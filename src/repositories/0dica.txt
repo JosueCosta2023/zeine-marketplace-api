@@ -1,0 +1,9 @@
+# Repositórios: acesso a dados (banco, arquivos, etc)
+
+├── repositories/       
+│   └── IUserRepository.ts
+│   └── UserRepository.ts
+│   └── IProductRepository.ts
+│   └── ProductRepository.ts
+│   └── ICategoryRepository.ts
+│   └── CategoryRepository.ts

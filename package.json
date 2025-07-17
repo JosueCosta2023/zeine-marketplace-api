@@ -3,20 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "nodemon --exec ts-node src/servers.ts",
+    "build": "tsc",
+    "start": "node dist/servers.ts",
+    "lint": "echo 'Adicione um linter se desejar'"
   },
   "dependencies": {
+    "@prisma/client": "^6.12.0",
+    "@types/cors": "^2.8.19",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "next": "15.4.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "next": "15.4.1"
+    "save-dev": "^0.0.1-security"
+  },
+
+  "prisma":{
+    "seed":"ts-node ./prisma/seed.ts"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@types/express": "^5.0.3",
     "@types/node": "^20",
     "@types/react": "^19",
-    "@types/react-dom": "^19"
+    "@types/react-dom": "^19",
+    "nodemon": "^3.1.10",
+    "prisma": "^6.12.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5"
   }
 }

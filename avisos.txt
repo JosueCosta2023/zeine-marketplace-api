@@ -1,0 +1,23 @@
+Importante Observar:
+
+**Principais problemas ao trabalhar com typeScript no backend
+
+-Formato de data:
+O Prisma retorna datas como objetos Date do JavaScript. Se você enviar para o frontend, pode precisar converter para string (ex: ISO 8601) para evitar problemas de formatação.
+
+-Timezone:
+O PostgreSQL pode armazenar datas em UTC, mas o JavaScript pode interpretar no timezone local. Isso pode causar confusão em exibição ou cálculos.
+
+-Serialização:
+Ao enviar objetos Date em JSON, eles são convertidos para string. Certifique-se de tratar o formato no frontend.
+
+-Validação:
+Ao receber datas do frontend, valide e converta para o tipo Date antes de salvar no banco.
+
+-Boas práticas
+Sempre trabalhe com datas em UTC no backend.
+Converta datas para string ISO (date.toISOString()) ao enviar para o frontend.
+Use bibliotecas como date-fns ou dayjs para manipulação de datas.
+No Prisma, o tipo é Date no TypeScript.
+
+
