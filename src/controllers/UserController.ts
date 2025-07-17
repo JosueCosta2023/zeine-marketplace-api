@@ -1,5 +1,19 @@
-import { editUser, listUsers, registerUser, removeUser } from "../services/UserService";
+import { editUser, listUsers, loginUser, registerUser, removeUser } from "../services/UserService";
 import { Request, Response } from "express";
+
+
+export const login = async (req: Request, res: Response) => {
+    try {
+        const {email, password} = req.body;
+        const result = await loginUser(email, password);
+        res.status(200).json({message: "Login realizado com sucesso", ...result})
+        
+    } catch (error) {
+        console.error(`Erro ao efetuar o login ${error}`)
+        res.status(500).json({error: "Erro de servidor ao efetuar o login"})
+    }
+}
+
 
 export const list = async (req: Request, res: Response) => {
     try {

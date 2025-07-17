@@ -2,6 +2,10 @@ import { PrismaClient } from "../generated/prisma"
 
 const prisma = new PrismaClient()
 
+export const findUserByEmail = async (email: string) => {
+    return prisma.user.findUnique({where: {email}})
+}
+
 export const findAllUser = async () => {
     return prisma.user.findMany();
 }
@@ -34,3 +38,4 @@ export const deleteUser = async (id: string) => {
         where: {id}
     })
 }
+
