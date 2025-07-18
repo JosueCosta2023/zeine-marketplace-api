@@ -12,8 +12,8 @@ export const loginUser = async (email: string, password: string) => {
   const user = await findUserByEmail(email);
   if(!user) throw new Error("Usuario nao encontrado");
 
-  // const valid = await bcrypt.compare(password, user.password);
-  // if(!valid) throw new Error("Senha invalida")
+  const valid = await bcrypt.compare(password, user.password);
+  if(!valid) throw new Error("Senha invalida")
 
   const token = generateToken({id: user.id, email: user.email})
 
