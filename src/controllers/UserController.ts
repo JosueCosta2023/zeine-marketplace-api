@@ -1,5 +1,7 @@
+import { userCreateValidation, userUpdateValidation } from "../validations/userValidations";
 import { editUser, listUsers, loginUser, registerUser, removeUser } from "../services/UserService";
 import { Request, Response } from "express";
+import {ZodError} from "zod"
 
 
 export const login = async (req: Request, res: Response) => {
@@ -14,7 +16,6 @@ export const login = async (req: Request, res: Response) => {
     }
 }
 
-
 export const list = async (req: Request, res: Response) => {
     try {
         const users = await listUsers()
@@ -28,22 +29,34 @@ export const list = async (req: Request, res: Response) => {
 
 export const create = async (req: Request, res: Response) => {
     try {
+        userCreateValidation.parse(req.body)
+
         const user = await registerUser(req.body)
         res.status(201).json({message: "Usuario cadastrado com sucesso", user: user.id})
-    } catch (error) {
+    } catch (error: unknown) {
         console.error(`Erro ao cadastrar usuario: ${error}`)
+
+        if(error instanceof ZodError){
+            return res.status(400).json({error: "Dados invalidos", details: error.issues})
+        }
+
         res.status(500).json({error: "Erro de servidor ao cadastrar usuario."})
     }
 }
 
 export const update = async (req: Request, res: Response) => {
     try {
+        userUpdateValidation.parse(req.body)
         const {id} = req.params;
         await editUser(id, req.body)
         res.status(200).json({message: "Usuario atualizado com sucesso"})
         
-    } catch (error) {
+    } catch (error: unknown) {
         console.error(`Erro ao atualizar usuario: ${error}`)
+
+        if(error instanceof ZodError){
+            return res.status(400).json({error: "Dados invalidos", details: error.issues})
+        }
         res.status(500).json({error: "Erro de servidor ao atualizar usuario"})
     }
 }

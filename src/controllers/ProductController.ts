@@ -3,6 +3,8 @@ import { editProduct, listProductByCategoryOrStatus, listProductById, listProduc
 import { JwtPayload } from "jsonwebtoken";
 import { Request, Response } from "express"
 import { loginUser } from "../services/UserService";
+import { productCreateValidation, productUpdateValidation } from "../validations/productValidations";
+import { ZodError } from "zod";
 
 export const list = async (req: Request, res: Response) => {
     try {
@@ -47,6 +49,9 @@ export const listByCategoryOrStatus = async (req: Request, res: Response) => {
 }
 export const create =async (req: Request, res: Response) => {
     try {
+
+        productCreateValidation.parse(req.body)
+
         const product = await registerProduct(req.body);
 
         if(!product){
@@ -55,8 +60,13 @@ export const create =async (req: Request, res: Response) => {
 
         res.status(201).json({messagem: `Produto ${product.title} cadastrado com sucesso`})
         
-    } catch (error) {
+    } catch (error: unknown) {
         console.error(`Erro ao cadastrar produto: ${error}`)
+
+        if(error instanceof ZodError){
+            return res.status(400).json({error: "Dados invalidos", details: error.issues})
+        }
+
         res.status(500).json({error: "Erro de servidor ao cadastrar produto"})
     }
 }
@@ -64,7 +74,7 @@ export const create =async (req: Request, res: Response) => {
 
 export const update =async (req: Request, res: Response) => {
     try {
-
+        productUpdateValidation.parse(req.body)
         const {id} = req.params
 
         const product= await listProductById(id);
@@ -90,8 +100,12 @@ export const update =async (req: Request, res: Response) => {
 
         res.status(200).json({messagem: "Produto atualizado com suceso"})
         
-    } catch (error) {
+    } catch (error: unknown) {
         console.error(`Erro ao atualizar produto: ${error}`)
+
+        if(error instanceof ZodError){
+            return res.status(400).json({error: "Dados invalidos", details: error.issues})
+        }
         res.status(500).json({error: "Erro de servidor ao atualizar produto"})
     }
 }

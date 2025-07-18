@@ -18,7 +18,10 @@
     "next": "15.4.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "save-dev": "^0.0.1-security"
+    "save-dev": "^0.0.1-security",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "zod": "^4.0.5"
   },
   "prisma": {
     "seed": "ts-node ./prisma/seed.ts"
