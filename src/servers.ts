@@ -3,6 +3,7 @@ import cors from "cors";
 import userRoutes from "./routes/userRoutes";
 import productRoutes from "./routes/productRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
+import { swaggerSpec, swaggerUi } from "./swagger";
 
 
 const app = express();
@@ -12,6 +13,8 @@ const PORT = process.env.PORT || 3000;
 app.use(cors())
 
 app.use(express.json())
+
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 
 // ROTAS RAIS
