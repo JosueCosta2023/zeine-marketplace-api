@@ -35,50 +35,50 @@ const options = {
                 schema: {
                   type: "object",
                   properties: {
-                    email: { 
-                        type: "string", 
-                        example: "usuario@email.com" },
+                    email: {
+                      type: "string",
+                      example: "usuario@email.com",
+                    },
                     password: {
                       type: "string",
                       example: "suasenha123",
                     },
                   },
-                  required: ["email", "password"]
+                  required: ["email", "password"],
                 },
               },
             },
           },
           responses: {
-            200: { 
-                description: "Login realizado com sucesso",
-                content: {
-                    "application/json":{
-                        schema: {
-                            type: "object",
+            200: {
+              description: "Login realizado com sucesso",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    properties: {
+                      message: {
+                        type: "string",
+                        example: "Login realizado com sucesso",
+                      },
+                      result: {
+                        type: "object",
+                        properties: {
+                          user: {
+                            type: "string",
                             properties: {
-                                message: {
-                                    type: "string",
-                                    example: "Login realizado com sucesso"
-                                },
-                                result: {
-                                    type: "object",
-                                    properties: {
-                                        user: {
-                                            type: "string",
-                                            properties: {
-                                                id: {type: "string"},
-                                                name: {type: "string"},
-                                                email: {type: "string"}
-                                            }
-                                        },
-                                        token: {type: "string"}
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } 
-                
+                              id: { type: "string" },
+                              name: { type: "string" },
+                              email: { type: "string" },
+                            },
+                          },
+                          token: { type: "string" },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             },
             500: { description: "Erro de servidor ao afetuar o login" },
           },
@@ -130,6 +130,83 @@ const options = {
             500: { description: "Erro de servidor ao excluir usuario" },
           },
         },
+      },
+      "/api/product": {
+        get: {
+          summary: "Lista todos os produtos",
+          tags: ["Produtos"],
+          responses: {
+            200: {
+              description: "Produtos listados com sucesso",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    properties: {
+                      message: {
+                        type: "string",
+                        example: null,
+                      },
+                      result: {
+                        type: "array",
+                        items: {
+                          type: "object",
+                          properties: {
+                            id: {
+                              type: "string",
+                              example: "clx1y2z3abc456",
+                            },
+                            title: {
+                              type: "string",
+                              example: "iPhone 15 Pro Max",
+                            },
+                            price: {
+                              type: "number",
+                              example: 7999.99,
+                            },
+                            description: {
+                              type: "string",
+                              example:
+                                "Smartphone Apple com 256GB de armazenamento",
+                            },
+                            categoryId: {
+                              type: "string",
+                              example: "eletronicos",
+                            },
+                            userId: {
+                              type: "string",
+                              example: "usr_abc123def456",
+                            },
+                            status: {
+                              type: "string",
+                              enum: ["ANUNCIADO", "CANCELADO", "VENDIDO"],
+                              example: "ANUNCIADO",
+                            },
+                            createdAt: {
+                              type: "string",
+                              format: "date-time",
+                              example: "2025-07-18T10:30:00.000Z",
+                            },
+                            updatedAt: {
+                              type: "string",
+                              format: "date-time",
+                              example: "2025-07-18T10:30:00.000Z",
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            500: {
+              description: "Erro de servidor ao listar produtos",
+            },
+          },
+        },
+
+        
       },
     },
   },
