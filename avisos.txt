@@ -40,3 +40,4 @@ Route:
 O local ideal para fazer o TRY-CATCH é no Controller, pois ele lida com as requisições HTTP e pode capturar erros antes de enviar a resposta ao cliente.
 
 
+,"next-env.d.ts", "**/*.ts", "**/*.tsx"

@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "nodemon --exec ts-node src/servers.ts",
-    "build": "tsc",
+    "build": "tsc & npx prisma generate",
     "start": "node dist/servers.ts",
-    "lint": "echo 'Adicione um linter se desejar'"
+    "lint": "echo 'Adicione um linter se desejar'",
+    "vercel-build": "npx prisma generate && tsc"
   },
   "dependencies": {
     "@prisma/client": "^6.12.0",
@@ -24,6 +25,10 @@
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "zod": "^4.0.5"
+  },
+
+  "engines":{
+    "node": "18.x"
   },
   "prisma": {
     "seed": "ts-node ./prisma/seed.ts"
