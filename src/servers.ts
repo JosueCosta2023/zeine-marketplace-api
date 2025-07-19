@@ -30,6 +30,8 @@ app.get("/api/docs.json", (req: Request, res: Response) => {
 
 // Swagger UI usando CDN (NOVA IMPLEMENTAÇÃO)
 app.get("/api/docs", (req: Request, res: Response) => {
+  const baseUrl = req.protocol + '://' + req.get('host');
+  
   const html = `
   <!DOCTYPE html>
   <html lang="en">
@@ -66,23 +68,36 @@ app.get("/api/docs", (req: Request, res: Response) => {
     <script src="https://unpkg.com/swagger-ui-dist@5.10.5/swagger-ui-standalone-preset.js"></script>
     <script>
       window.onload = function() {
-        const ui = SwaggerUIBundle({
-          url: '/api/docs.json',
-          dom_id: '#swagger-ui',
-          deepLinking: true,
-          presets: [
-            SwaggerUIBundle.presets.apis,
-            SwaggerUIStandalonePreset
-          ],
-          plugins: [
-            SwaggerUIBundle.plugins.DownloadUrl
-          ],
-          layout: "StandaloneLayout",
-          tryItOutEnabled: true,
-          requestInterceptor: function(req) {
-            return req;
-          }
-        });
+        // Buscar o spec e corrigir a URL do servidor
+        fetch('${baseUrl}/api/docs.json')
+          .then(response => response.json())
+          .then(spec => {
+            // Forçar a URL correta no spec
+            spec.servers = [{ 
+              url: '${baseUrl}', 
+              description: 'API Server' 
+            }];
+            
+            const ui = SwaggerUIBundle({
+              spec: spec, // Usar spec em vez de url
+              dom_id: '#swagger-ui',
+              deepLinking: true,
+              presets: [
+                SwaggerUIBundle.presets.apis,
+                SwaggerUIStandalonePreset
+              ],
+              plugins: [
+                SwaggerUIBundle.plugins.DownloadUrl
+              ],
+              layout: "StandaloneLayout",
+              tryItOutEnabled: true
+            });
+          })
+          .catch(error => {
+            console.error('Erro ao carregar documentação:', error);
+            document.getElementById('swagger-ui').innerHTML = 
+              '<h2>Erro ao carregar documentação da API</h2>';
+          });
       };
     </script>
   </body>
