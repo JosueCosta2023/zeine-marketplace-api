@@ -9,6 +9,14 @@ const options = {
       version: "1.0.0",
       description: "Documentaçao da API  do Zeine Marketplace",
     },
+    servers: [
+      {
+        url: process.env.NODE_ENV === 'production' 
+          ? "zeine-marketplace-api.vercel.app" 
+          : "http://localhost:3001",
+        description: process.env.NODE_ENV === 'production' ? "Produção" : "Desenvolvimento"
+      }
+    ],
     components: {
       securitySchemes: {
         bearerAuth: {
@@ -791,5 +799,14 @@ const options = {
   apis: [],
 };
 
-export const swaggerSpec = swaggerJSDoc(options);
-export { swaggerUi };
+const swaggerSpec = swaggerJSDoc(options)
+const swagggerOptions = {
+  explorer: true,
+  swaggerOptions: {
+    persistAuthorization: true,
+    displayRequestDuration: true,
+  },
+  customCss: ".swagger-ui .topbar {display: none}",
+  customSiteTitle: "Zeine Marketplace API"
+}
+export { swaggerUi, swaggerSpec, swagggerOptions  };

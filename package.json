@@ -6,7 +6,7 @@
     "dev": "nodemon --exec ts-node src/servers.ts",
     "build": "tsc & npx prisma generate",
     "start": "node dist/servers.js",
-    "vercel-build": "npx prisma generate && tsc"
+    "vercel-build": "npx prisma generate && tsc --build"
   },
   "dependencies": {
     "@prisma/client": "^6.12.0",
