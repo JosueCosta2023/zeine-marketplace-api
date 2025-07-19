@@ -8,6 +8,8 @@ import { swaggerSpec, swaggerUi } from "./swagger";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const LOCALHOST = "http://localhost:"
+const APIDOCS = LOCALHOST+PORT+ `/api/docs`;
 
 // Aqui voce precisa colocar o endereço ip do frontend
 app.use(cors())
@@ -23,10 +25,11 @@ app.use("/api/product", productRoutes )
 app.use("/api/category", categoryRoutes )
 
 app.get("/", (req: Request, res: Response) => {
-    res.send(`API Zeine Marketplace rodando!`)
+    res.send({message: `API Zeine Marketplace rodando!`, docLink: APIDOCS})
 })
 
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`)
+    console.log(`Servidor rodando na porta ${LOCALHOST}${PORT}`)
+    console.log(`Documentação da Api: ${APIDOCS}`)
 })
 
