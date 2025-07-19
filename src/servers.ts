@@ -28,10 +28,8 @@ app.get("/api/docs.json", (req: Request, res: Response) => {
   res.send(swaggerSpec);
 });
 
-// Swagger UI usando CDN (NOVA IMPLEMENTAÇÃO)
+// Swagger UI usando CDN (VERSÃO MAIS ROBUSTA)
 app.get("/api/docs", (req: Request, res: Response) => {
-  const baseUrl = req.protocol + '://' + req.get('host');
-  
   const html = `
   <!DOCTYPE html>
   <html lang="en">
@@ -40,26 +38,6 @@ app.get("/api/docs", (req: Request, res: Response) => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zeine Marketplace API Documentation</title>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@5.10.5/swagger-ui.css" />
-    <style>
-      html {
-        box-sizing: border-box;
-        overflow: -moz-scrollbars-vertical;
-        overflow-y: scroll;
-      }
-      *, *:before, *:after {
-        box-sizing: inherit;
-      }
-      body {
-        margin:0;
-        background: #fafafa;
-      }
-      .swagger-ui .topbar {
-        background-color: #2c5a7e;
-      }
-      .swagger-ui .topbar .download-url-wrapper {
-        display: none;
-      }
-    </style>
   </head>
   <body>
     <div id="swagger-ui"></div>
@@ -68,26 +46,25 @@ app.get("/api/docs", (req: Request, res: Response) => {
     <script src="https://unpkg.com/swagger-ui-dist@5.10.5/swagger-ui-standalone-preset.js"></script>
     <script>
       window.onload = function() {
-        // Buscar o spec e corrigir a URL do servidor
-        fetch('${baseUrl}/api/docs.json')
+        // Detectar protocolo correto automaticamente
+        const baseUrl = window.location.origin;
+        
+        fetch(baseUrl + '/api/docs.json')
           .then(response => response.json())
           .then(spec => {
             // Forçar a URL correta no spec
             spec.servers = [{ 
-              url: '${baseUrl}', 
+              url: baseUrl, 
               description: 'API Server' 
             }];
             
             const ui = SwaggerUIBundle({
-              spec: spec, // Usar spec em vez de url
+              spec: spec,
               dom_id: '#swagger-ui',
               deepLinking: true,
               presets: [
                 SwaggerUIBundle.presets.apis,
                 SwaggerUIStandalonePreset
-              ],
-              plugins: [
-                SwaggerUIBundle.plugins.DownloadUrl
               ],
               layout: "StandaloneLayout",
               tryItOutEnabled: true
@@ -96,7 +73,7 @@ app.get("/api/docs", (req: Request, res: Response) => {
           .catch(error => {
             console.error('Erro ao carregar documentação:', error);
             document.getElementById('swagger-ui').innerHTML = 
-              '<h2>Erro ao carregar documentação da API</h2>';
+              '<h2>Erro ao carregar documentação da API</h2><p>Erro: ' + error.message + '</p>';
           });
       };
     </script>
