@@ -26,14 +26,14 @@
     "swagger-ui-express": "^5.0.1",
     "zod": "^4.0.5"
   },
-
-  "engines":{
-    "node": "18.x"
+  "engines": {
+    "node": "22.x"
   },
   "prisma": {
     "seed": "ts-node ./prisma/seed.ts"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",

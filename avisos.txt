@@ -41,3 +41,11 @@ O local ideal para fazer o TRY-CATCH é no Controller, pois ele lida com as requ
 
 
 ,"next-env.d.ts", "**/*.ts", "**/*.tsx"
+
+
+,
+
+    "typeRoots":["./src/@types", "./node_modules/@types"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
