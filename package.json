@@ -2,6 +2,19 @@
   "name": "zeine-marketplace-api",
   "version": "0.1.0",
   "private": true,
+  "license":"MIT",
+  "author":{
+    "name":"Josue Ocanha Costa",
+    "url": "https://github.com/JosueCosta2023"
+  },
+  "repository":{
+    "type":"git",
+    "url": "https://github.com/JosueCosta2023/zeine-marketplace-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JosueCosta2023/zeine-marketplace-api/issues"
+  },
+  "homepage": "https://github.com/JosueCosta2023/zeine-marketplace-api#readme",
   "scripts": {
     "dev": "nodemon --exec ts-node src/servers.ts",
     "build": "tsc & npx prisma generate",
