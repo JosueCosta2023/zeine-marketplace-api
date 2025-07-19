@@ -1,5 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
-import swaggerUi from "swagger-ui-express";
+
 
 const options = {
   definition: {
@@ -800,13 +800,5 @@ const options = {
 };
 
 const swaggerSpec = swaggerJSDoc(options)
-const swagggerOptions = {
-  explorer: true,
-  swaggerOptions: {
-    persistAuthorization: true,
-    displayRequestDuration: true,
-  },
-  customCss: ".swagger-ui .topbar {display: none}",
-  customSiteTitle: "Zeine Marketplace API"
-}
-export { swaggerUi, swaggerSpec, swagggerOptions  };
+
+export { swaggerSpec  };
