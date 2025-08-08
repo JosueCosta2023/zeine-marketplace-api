@@ -16,7 +16,11 @@
     "jsx": "preserve",
     "incremental": true,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "typeRoots":[
+      "./src/@types",
+      "./node_modules/@types"
+    ]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

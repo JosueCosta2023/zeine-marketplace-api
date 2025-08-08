@@ -28,6 +28,7 @@ export const createProduct = async (data: {
     title: string;
     price: number;
     description: string;
+    photo?: string;
     status: ProductStatus;
     userId: string;
     categoryId: string;
@@ -40,6 +41,7 @@ export const updateProduct = async (id: string, data: {
     title?: string;
     price?: number;
     description?: string;
+    photo?: string;
     status?: ProductStatus;
     categoryId?: string;
 }) => {

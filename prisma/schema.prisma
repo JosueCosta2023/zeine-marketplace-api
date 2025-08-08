@@ -40,6 +40,7 @@ model Product {
   title       String
   price       Float
   description String
+  photo       String?
   status      ProductStatus
   userId      String
   categoryId  String
