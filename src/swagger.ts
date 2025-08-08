@@ -1,6 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
 
-
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -11,11 +10,15 @@ const options = {
     },
     servers: [
       {
-        url: process.env.NODE_ENV === 'production' 
-          ? "zeine-marketplace-api.vercel.app" 
-          : "http://localhost:3001",
-        description: process.env.NODE_ENV === 'production' ? "Produção" : "Desenvolvimento"
-      }
+        url:
+          process.env.NODE_ENV === "production"
+            ? "zeine-marketplace-api.vercel.app"
+            : "http://localhost:3001",
+        description:
+          process.env.NODE_ENV === "production"
+            ? "Produção"
+            : "Desenvolvimento",
+      },
     ],
     components: {
       securitySchemes: {
@@ -409,6 +412,10 @@ const options = {
                               example:
                                 "Smartphone Apple com 256GB de armazenamento",
                             },
+                            photo: {
+                              type: "string",
+                              example: "https://myphoto.webp",
+                            },
                             categoryId: {
                               type: "string",
                               example: "eletronicos",
@@ -472,6 +479,10 @@ const options = {
                     description: {
                       type: "string",
                       example: "Smartphone Apple com 256GB de armazenamento",
+                    },
+                    photo: {
+                      type: "string",
+                      example: "https://myphoto.webp",
                     },
                     status: {
                       type: "string",
@@ -563,6 +574,10 @@ const options = {
                       example:
                         "Smartphone Apple com 256GB - Descrição atualizada",
                     },
+                    photo: {
+                              type: "string",
+                              example: "https://myphoto.webp"
+                            },
                     status: {
                       type: "string",
                       enum: ["ANUNCIADO", "CANCELADO", "VENDIDO"],
@@ -799,6 +814,6 @@ const options = {
   apis: [],
 };
 
-const swaggerSpec = swaggerJSDoc(options)
+const swaggerSpec = swaggerJSDoc(options);
 
-export { swaggerSpec  };
+export { swaggerSpec };
