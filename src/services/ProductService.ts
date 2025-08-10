@@ -18,7 +18,7 @@ export const registerProduct = async (data:{
     price: number;
     description: string;
     photo?: string;
-    status: ProductStatus;
+    status?: ProductStatus;
     userId: string;
     categoryId: string;
 }) => {

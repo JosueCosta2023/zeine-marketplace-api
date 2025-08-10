@@ -1,53 +1,65 @@
-import { PrismaClient, ProductStatus } from "../generated/prisma"
+import { PrismaClient, ProductStatus } from "../generated/prisma";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 export const findAllProduct = async () => {
-    return prisma.product.findMany();
-}
+  return prisma.product.findMany();
+};
 
 export const findProductById = async (id: string) => {
-    return prisma.product.findUnique({where: {id}})
-}
+  return prisma.product.findUnique({ where: { id } });
+};
 
 export const findProductByCategoryOrStatus = (query: {
-    categoryId?: string;
-    status?: ProductStatus;
+  categoryId?: string;
+  status?: ProductStatus;
 }) => {
-    const {categoryId, status} = query;
+  const { categoryId, status } = query;
 
-    return prisma.product.findMany({
-        where: {
-            ...(categoryId && {categoryId}),
-            ...(status && {status})
-        }
-    })
-}
+  return prisma.product.findMany({
+    where: {
+      ...(categoryId && { categoryId }),
+      ...(status && { status }),
+    },
+  });
+};
 
 export const createProduct = async (data: {
-    title: string;
-    price: number;
-    description: string;
-    photo?: string;
-    status: ProductStatus;
-    userId: string;
-    categoryId: string;
+  title: string;
+  price: number;
+  description: string;
+  photo?: string;
+  status?: ProductStatus;
+  userId: string;
+  categoryId: string;
+}) => {
+  return prisma.product.create({
+    data: {
+      title: data.title,
+      price: data.price,
+      description: data.description,
+      photo: data.photo,
+      status: data.status,
+      user: { connect: { id: data.userId } }, // relação correta
+      category: { connect: { id: data.categoryId } }, // relação correta
+    },
+  });
+};
 
-}) =>{
-    return prisma.product.create({data})
-}
-
-export const updateProduct = async (id: string, data: {
+export const updateProduct = async (
+  id: string,
+  data: {
     title?: string;
     price?: number;
     description?: string;
     photo?: string;
     status?: ProductStatus;
     categoryId?: string;
-}) => {
-    return prisma.product.update({where: {id}, data})
-}
+  }
+) => {
+  return prisma.product.update({ where: { id }, data });
+};
 
 export const deleteProduct = (id: string) => {
-    return prisma.product.delete({where: {id}})
-}
+  return prisma.product.delete({ where: { id } });
+};
